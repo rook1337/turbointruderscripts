@@ -1,0 +1,31 @@
+def queueRequests(target, wordlists):
+
+    engine = RequestEngine(endpoint=target.endpoint,
+
+                           concurrentConnections=30,
+
+                           requestsPerConnection=1,
+
+                           pipeline=False
+
+                           )
+
+
+
+    for firstWord in open('/usr/share/dict/users'):
+
+      for secondWord in open('/usr/share/dict/passwd'):
+
+        engine.queue(target.req, [firstWord.rstrip(), secondWord.rstrip()])
+
+
+
+
+
+def handleResponse(req, interesting):
+
+    # currently available attributes are req.status, req.wordcount, req.length and req.response
+
+    if req.status != 404:
+
+        table.add(req)

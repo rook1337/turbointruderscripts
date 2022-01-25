@@ -1,0 +1,41 @@
+# Find more example scripts at https://github.com/PortSwigger/turbo-intruder/blob/master/resources/examples/default.py
+
+
+
+def queueRequests(target, wordlists):
+
+  engine = RequestEngine(endpoint=target.endpoint,
+
+              concurrentConnections=10,
+
+              requestsPerConnection=1,
+
+              pipeline=False
+
+              )
+
+
+
+  for i in range(10):
+
+    engine.queue(target.req, [str(i),str(i)],gate='race1')
+
+     
+
+  engine.start(timeout=5)
+
+  engine.openGate('race1')
+
+  engine.complete(timeout=60)
+
+
+
+
+
+def handleResponse(req, interesting):
+
+
+
+
+  table.add(req)
+

